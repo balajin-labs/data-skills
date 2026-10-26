@@ -1,0 +1,15 @@
+{
+  "name": "data-skills",
+  "description": "Correctness-first skills for data science and data engineering agents.",
+  "owner": {
+    "name": "Balaji Nagarajan",
+    "url": "https://balajin.dev"
+  },
+  "plugins": [
+    {
+      "name": "data-skills",
+      "source": "./",
+      "description": "Catch leakage, meaningless evaluations, fan-out joins and silent data drift in AI-generated data work."
+    }
+  ]
+}

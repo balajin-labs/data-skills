@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+benchmark/cases/
+benchmark/results.json
+.venv/
+.DS_Store

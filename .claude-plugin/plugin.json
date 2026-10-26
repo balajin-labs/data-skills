@@ -1,0 +1,11 @@
+{
+  "name": "data-skills",
+  "version": "0.1.0",
+  "description": "Senior-reviewer skills for AI-generated data work: catch leakage, meaningless evaluations, fan-out joins and silent data drift before they reach a report.",
+  "author": {
+    "name": "Balaji Nagarajan",
+    "url": "https://balajin.dev"
+  },
+  "license": "MIT",
+  "keywords": ["data-science", "data-engineering", "machine-learning", "leakage", "data-quality", "sql", "skills"]
+}
