@@ -15,6 +15,8 @@ The goal of this project is simple: fewer wrong numbers. The bar for a new check
 
 A skill is a folder under `skills/` with a `SKILL.md` (frontmatter `name` and a `description` that says *when* to use it) and, ideally, a `scripts/` folder with a check. The description decides when agents load the skill, so write it in the words people use when they ask for that kind of work.
 
+Keep the skill agent-neutral so it works in Claude Code, Codex, Devin and the rest: refer to the script as `<skill-dir>/scripts/...`, use only `name` and `description` in the frontmatter, and avoid agent-specific tool names. Register the script in `SCRIPTS` in `benchmark/run.py`, add its cases to `benchmark/generate.py`, and add a row to the skills table in the README. The manifests and `scripts/install.sh` pick up new skill folders automatically.
+
 ## Reporting a false alarm or a miss
 
 Open an issue with a minimal dataset (synthetic is fine) and the command you ran. Never attach real customer, patient or employee data.

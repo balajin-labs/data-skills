@@ -237,4 +237,13 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except SystemExit as e:
+        if isinstance(e.code, str):      # input errors: print the message and exit 2 (1 is reserved for FAIL)
+            print(e.code, file=sys.stderr)
+            sys.exit(2)
+        raise
+    except pd.errors.EmptyDataError:
+        print("error: an input file is empty (no header, no rows)", file=sys.stderr)
+        sys.exit(2)

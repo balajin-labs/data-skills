@@ -227,8 +227,15 @@ def main(argv=None):
     if not a.y_score and not a.y_pred:
         raise SystemExit("error: give --y-score and/or --y-pred")
 
+    for c in (a.y_score, a.compare_score):
+        if c:
+            df[c] = pd.to_numeric(df[c], errors="coerce")     # stray text becomes missing and is dropped below
+    for c in a.segment:
+        df[c] = df[c].astype(object).where(df[c].notna(), "(missing)").astype(str)
     used = [c for c in [a.y_true, a.y_score, a.y_pred, a.compare_score] if c]
     df = df.dropna(subset=used).reset_index(drop=True)
+    if len(df) < 20:
+        raise SystemExit(f"error: only {len(df)} rows have values in all of {used}; need at least 20 to evaluate")
     rng = np.random.default_rng(a.seed)
     yb = to_binary(df[a.y_true])
     task = a.task if a.task != "auto" else ("binary" if yb is not None else "regression")
@@ -244,6 +251,11 @@ def main(argv=None):
     else:
         if not a.y_pred:
             raise SystemExit("error: regression needs --y-pred")
+        for c in (a.y_true, a.y_pred):
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+        df = df.dropna(subset=[a.y_true, a.y_pred]).reset_index(drop=True)
+        if len(df) < 20:
+            raise SystemExit(f"error: only {len(df)} rows have numeric values in '{a.y_true}' and '{a.y_pred}'")
         findings, metrics = regression_checks(df, df[a.y_true].astype(float), df[a.y_pred].astype(float),
                                               df[a.compare_score] if a.compare_score else None, a.segment, rng)
 
@@ -262,4 +274,13 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except SystemExit as e:
+        if isinstance(e.code, str):      # input errors: print the message and exit 2 (1 is reserved for FAIL)
+            print(e.code, file=sys.stderr)
+            sys.exit(2)
+        raise
+    except pd.errors.EmptyDataError:
+        print("error: an input file is empty (no header, no rows)", file=sys.stderr)
+        sys.exit(2)

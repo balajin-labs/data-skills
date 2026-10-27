@@ -18,12 +18,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CASES = ROOT / "benchmark" / "cases"
-SCRIPTS = {
-    "leakage-audit": "skills/leakage-audit/scripts/check_leakage.py",
-    "eval-sanity": "skills/eval-sanity/scripts/check_eval.py",
-    "join-guard": "skills/join-guard/scripts/check_join.py",
-    "null-type-drift": "skills/null-type-drift/scripts/check_drift.py",
-}
+
+
+def _discover():
+    """Map each skill to its check script: skills/<skill>/scripts/check_*.py."""
+    out = {}
+    for skill in sorted((ROOT / "skills").iterdir()):
+        found = sorted((skill / "scripts").glob("check_*.py")) if (skill / "scripts").is_dir() else []
+        if found:
+            out[skill.name] = str(found[0].relative_to(ROOT))
+    return out
+
+
+SCRIPTS = _discover()
 RANK = {"WARN": 1, "FAIL": 2}
 
 

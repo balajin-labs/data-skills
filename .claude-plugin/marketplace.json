@@ -9,7 +9,10 @@
     {
       "name": "data-skills",
       "source": "./",
-      "description": "Catch leakage, meaningless evaluations, fan-out joins and silent data drift in AI-generated data work."
+      "description": "20 correctness checks for AI-generated data work: leakage, joins, A/B tests, forecasts, calibration, fairness, SQL, pipelines, PII and notebooks."
     }
-  ]
+  ],
+  "metadata": {
+    "description": "Correctness checks for AI-generated data science and data engineering work."
+  }
 }

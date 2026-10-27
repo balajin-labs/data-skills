@@ -1,0 +1,31 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "data-skills",
+  "version": "0.3.0",
+  "description": "Senior-reviewer skills for AI-generated data work: 20 checks that catch leakage, fan-out joins, broken A/B tests, misleading comparisons, weak forecasts, uncalibrated or unfair models, buggy SQL, non-idempotent pipelines, leaked PII and unreproducible notebooks before they reach a report.",
+  "author": {
+    "name": "Balaji Nagarajan",
+    "url": "https://balajin.dev"
+  },
+  "homepage": "https://github.com/balajin-labs/data-skills",
+  "repository": "https://github.com/balajin-labs/data-skills",
+  "license": "MIT",
+  "keywords": [
+    "data-science",
+    "data-engineering",
+    "machine-learning",
+    "leakage",
+    "data-quality",
+    "sql",
+    "skills",
+    "ab-testing",
+    "experimentation",
+    "forecasting",
+    "statistics",
+    "pii",
+    "fairness",
+    "calibration",
+    "notebooks",
+    "data-contracts"
+  ]
+}
